@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "bloco": "Gerais",
+    "materia": "Língua Portuguesa",
+    "peso": 1,
+    "enunciado": "Assinale a alternativa em que o uso do acento indicativo de crase está em total conformidade com a norma-padrão da língua:",
+    "alternativas": {
+      "A": "Os agentes municipais compareceram à reuniões comunitárias no final da tarde.",
+      "B": "A viatura da Guarda Civil dirigiu-se à repartição central para lavrar o relatório.",
+      "C": "O comandante entregou as novas diretrizes à um grupo restrito de inspetores.",
+      "D": "Todos os servidores ficaram dispostos à colaborar com as investigações preliminares."
+    },
+    "gabarito": "B",
+    "comentario": "Correta B. Ocorre crase pela fusão da preposição 'a' exigida por 'dirigiu-se' com o artigo 'a' de 'repartição'. Em A, 'à' no singular antes de plural não ocorre crase; em C, não há crase antes de artigo indefinido masculino ('um'); em D, não há crase antes de verbo ('colaborar')."
+  },
+  {
+    "id": 2,
+    "bloco": "Gerais",
+    "materia": "Língua Portuguesa",
+    "peso": 1,
+    "enunciado": "Em relação à concordância verbal, assinale a opção correta segundo a norma culta:",
+    "alternativas": {
+      "A": "Houveram muitas dúvidas a respeito do cumprimento do estatuto dos servidores.",
+      "B": "Fazem aproximadamente dois meses que o edital de convocação foi publicado.",
+      "C": "Trata-se de ocorrências complexas registradas durante o patrulhamento escolar.",
+      "D": "Devem existir critérios rigorosos para o porte de arma institucional."
+    },
+    "gabarito": "D",
+    "comentario": "Correta D. Na locução 'devem existir', o verbo principal é 'existir' (pessoal), logo o auxiliar 'dever' flexiona concordando com o sujeito 'critérios rigorosos'. 'Haver' existencial e 'fazer' temporal são impessoais (ficam no singular). Em C, o verbo transitivo indireto com 'se' (índice de indeterminação do sujeito) fica no singular: 'Trata-se de'."
+  },
+  {
+    "id": 3,
+    "bloco": "Gerais",
+    "materia": "História da Cidade",
+    "peso": 1,
+    "enunciado": "A origem do município de Sobral remonta à ocupação pastoril das margens do Rio Acaraú no início do século XVIII. O marco inicial de sua formação territorial vincula-se historicamente à fundação da:",
+    "alternativas": {
+      "A": "Vila Nova Real da Rainha, pelo Capitão-Mor Salvador Pinheiro da Cunha.",
+      "B": "Fazenda Caiçara, estabelecida por Antônio Rodrigues Magalhães.",
+      "C": "Missão de Nossa Senhora da Conceição, pelos jesuítas da Capitania do Siará.",
+      "D": "Fortaleza de São Pedro do Acaraú, durante as invasões holandesas."
+    },
+    "gabarito": "B",
+    "comentario": "Correta B. O núcleo original do povoamento que deu origem a Sobral foi a Fazenda Caiçara, instalada por volta de 1728 por Antônio Rodrigues Magalhães. Em 1773 foi elevada à Vila Distinta e Real de Sobral e em 1841 à categoria de cidade."
+  },
+  {
+    "id": 4,
+    "bloco": "Gerais",
+    "materia": "História da Cidade",
+    "peso": 1,
+    "enunciado": "No ano de 1919, a cidade de Sobral ganhou destaque internacional na comunidade científica devido à realização de um experimento que comprovou a Teoria da Relatividade Geral de Albert Einstein. Esse evento esteve diretamente relacionado à observação de um:",
+    "alternativas": {
+      "A": "Cometa de trajetória singular registrado pelos astrônomos do Observatório Nacional.",
+      "B": "Eclipse solar total, que permitiu aferir o desvio da luz pelas massas gravitacionais.",
+      "C": "Alinhamento planetário raro observado no alto da Serra da Meruoca.",
+      "D": "Fenômeno meteorológico incomum provocado pela seca histórica no sertão cearense."
+    },
+    "gabarito": "B",
+    "comentario": "Correta B. Em 29 de maio de 1919, expedições científicas britânicas e brasileiras registraram em Sobral o eclipse solar total, comprovando empiricamente a deflexão da luz no campo gravitacional prevista por Albert Einstein."
+  },
+  {
+    "id": 5,
+    "bloco": "Especificos",
+    "materia": "Legislação Extravagante",
+    "peso": 2,
+    "enunciado": "De acordo com o Estatuto Geral das Guardas Municipais (Lei Federal nº 13.022/2014), constitui competência geral da Guarda Municipal:",
+    "alternativas": {
+      "A": "A instrução e condução exclusiva de inquéritos policiais de crimes patrimoniais municipais.",
+      "B": "A proteção de bens, serviços, logradouros públicos municipais e instalações do Município.",
+      "C": "O cumprimento autônomo e forçado de mandados judiciais de busca e apreensão penal.",
+      "D": "A fiscalização e julgamento originário de infrações disciplinares militares."
+    },
+    "gabarito": "B",
+    "comentario": "Correta B. Art. 4º da Lei 13.022/2014: 'É competência geral das guardas municipais a proteção de bens, serviços, logradouros públicos municipais e instalações do Município'. Guardas são civis e não exercem atividade de polícia judiciária (inquérito)."
+  }
+]
