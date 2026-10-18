@@ -24,10 +24,6 @@ function textoValido(valor, maxLength = MAX_TAMANHO_TEXTO) {
         : '';
 }
 
-function inteiroValido(valor, max) {
-    return Number.isSafeInteger(valor) && valor >= 0 && valor <= max;
-}
-
 function normalizarDados(valor) {
     const resultado = criarDadosVazios();
     if (!valor || typeof valor !== 'object' || Array.isArray(valor)) return resultado;
@@ -234,15 +230,16 @@ function carregarDashboard() {
             const percentual = estatistica.feitas > 0
                 ? Math.round((estatistica.acertos / estatistica.feitas) * 100)
                 : 0;
-            const cor = percentual >= 70 ? 'emerald' : 'amber';
+            const corTexto = percentual >= 70 ? 'text-emerald-400' : 'text-amber-400';
+            const corBarra = percentual >= 70 ? 'bg-emerald-500' : 'bg-amber-500';
             return `
                 <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
                     <div class="mb-2 flex items-start justify-between gap-3 font-semibold">
                         <span class="text-slate-300">${escaparHtml(nome)}</span>
-                        <span class="shrink-0 text-${cor}-400">${estatistica.acertos}/${estatistica.feitas} (${percentual}%)</span>
+                        <span class="shrink-0 ${corTexto}">${estatistica.acertos}/${estatistica.feitas} (${percentual}%)</span>
                     </div>
                     <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-800">
-                        <div class="h-full rounded-full bg-${cor}-500 transition-all duration-300" style="width:${percentual}%"></div>
+                        <div class="h-full rounded-full ${corBarra} transition-all duration-300" style="width:${percentual}%"></div>
                     </div>
                 </div>`;
         }).join('');
@@ -410,7 +407,16 @@ Retorne APENAS um array JSON válido neste formato exato:
             .trim();
         if (!textoResposta) throw new Error('A API retornou uma resposta vazia. Tente novamente.');
 
-        const questoes = validarQuestoes(JSON.parse(limparJsonGerado(textoResposta)), nomeCurto);
+        let dadosBrutos;
+        try {
+            dadosBrutos = JSON.parse(limparJsonGerado(textoResposta));
+        } catch (erro) {
+            if (erro instanceof SyntaxError) {
+                throw new Error('A resposta JSON da API veio inválida ou incompleta. Tente gerar o bloco novamente.');
+            }
+            throw erro;
+        }
+        const questoes = validarQuestoes(dadosBrutos, nomeCurto);
         renderizarQuestoes(questoes);
     } catch (erro) {
         const mensagem = erro.name === 'AbortError'
@@ -544,6 +550,7 @@ window.removerErro = function(indice) {
 window.selecionarDia = selecionarDia;
 
 window.alternarAba = function(aba) {
+    if (aba !== 'prova' && aba !== 'erros') return;
     const provaVisivel = aba === 'prova';
     document.getElementById('area-questoes')?.classList.toggle('hidden', !provaVisivel);
     document.getElementById('area-erros')?.classList.toggle('hidden', provaVisivel);
