@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#020617">
+    <title>Simulador GCM Sobral - Reta Final 15 Dias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950/30 via-slate-950 to-slate-950 font-sans text-slate-100 antialiased">
+    <div class="mx-auto max-w-7xl space-y-6 px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
+
+        <header class="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl shadow-black/20 sm:p-6">
+            <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-blue-500/[0.06] to-transparent sm:block"></div>
+            <div class="relative flex flex-col justify-between gap-6 xl:flex-row xl:items-center">
+                <div class="flex min-w-0 items-start gap-4">
+                    <div class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-amber-400/30 bg-amber-400/10 text-amber-300 sm:flex">
+                        <svg aria-hidden="true" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3 19 6v5c0 4.7-2.9 8-7 10-4.1-2-7-5.3-7-10V6l7-3Z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="mb-3 flex flex-wrap items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 rounded-md border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-300">
+                                <svg aria-hidden="true" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.5 14.6 8l6.1.9-4.4 4.3 1 6.1-5.3-2.9-5.4 2.9 1-6.1-4.4-4.3L9.3 8 12 2.5Z"/>
+                                </svg>
+                                Edital 001/2026 · Consulpam
+                            </span>
+                            <span class="rounded-md border border-amber-400/20 bg-slate-950/70 px-2.5 py-1 text-[11px] font-semibold text-amber-200">Prova · 01/11/2026</span>
+                        </div>
+                        <h1 class="text-xl font-extrabold leading-tight tracking-tight text-white sm:text-2xl lg:text-3xl">Painel Oficial GCM Sobral</h1>
+                        <p class="mt-2 text-sm text-slate-400">Plano tático de preparação <span class="mx-1 text-slate-600">/</span> <span class="font-medium text-slate-300">Meta de 60 questões por dia</span></p>
+                        <p class="mt-1 text-xs text-slate-500">Cronograma atualizado: 17/10/2026 até 31/10/2026 · 15 dias</p>
+                    </div>
+                </div>
+
+                <div class="w-full rounded-xl border border-slate-800 bg-slate-950/70 p-3 sm:p-4 xl:max-w-md">
+                    <label for="api-key-input" class="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400">Conexão de estudos · Gemini API</label>
+                    <div class="flex gap-2">
+                        <input type="password" id="api-key-input" placeholder="Insira sua chave de API" autocomplete="off"
+                            class="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-slate-100 outline-none transition placeholder:text-slate-600 hover:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                        <button type="button" onclick="salvarApiKey()" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-950/40 transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-950 active:scale-[0.98]">
+                            <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.2 17 19 7"/>
+                            </svg>
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section aria-label="Resumo do desempenho" class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 xl:gap-4">
+            <article class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-lg shadow-black/10 transition duration-200 hover:-translate-y-0.5 hover:border-blue-500/50">
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/70 to-transparent"></div>
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Progresso de hoje</p>
+                        <p class="mt-2 text-3xl font-extrabold tracking-tight text-blue-300" id="stat-hoje">0 / 60</p>
+                        <p class="mt-1 text-xs text-slate-500">Questões no dia atual</p>
+                    </div>
+                    <div class="rounded-xl border border-blue-400/20 bg-blue-500/10 p-3 text-blue-300">
+                        <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <circle cx="12" cy="12" r="9" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12.5 10.5 15 16 9.5"/>
+                        </svg>
+                    </div>
+                </div>
+            </article>
+            <article class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-lg shadow-black/10 transition duration-200 hover:-translate-y-0.5 hover:border-blue-500/50">
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/70 to-transparent"></div>
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total resolvido</p>
+                        <p class="mt-2 text-3xl font-extrabold tracking-tight text-white" id="stat-total">0 / 900</p>
+                        <p class="mt-1 text-xs text-slate-500">Meta dos 15 dias</p>
+                    </div>
+                    <div class="rounded-xl border border-indigo-400/20 bg-indigo-500/10 p-3 text-indigo-300">
+                        <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 0 0-2 2v12h16V7a2 2 0 0 0-2-2h-2"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6v4H9zM8 12h8m-8 4h5"/>
+                        </svg>
+                    </div>
+                </div>
+            </article>
+            <article class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-lg shadow-black/10 transition duration-200 hover:-translate-y-0.5 hover:border-emerald-500/40">
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent"></div>
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Taxa de acerto</p>
+                        <p class="mt-2 text-3xl font-extrabold tracking-tight text-emerald-400" id="stat-acerto">0%</p>
+                        <p class="mt-1 text-xs text-slate-500">Precisão geral</p>
+                    </div>
+                    <div class="rounded-xl border border-emerald-400/20 bg-emerald-500/10 p-3 text-emerald-300">
+                        <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 18V9m5 9V5m5 13v-6m6 6V3"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m3 7 5-3 5 5 7-6"/>
+                        </svg>
+                    </div>
+                </div>
+            </article>
+            <article class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-lg shadow-black/10 transition duration-200 hover:-translate-y-0.5 hover:border-amber-500/40">
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Caderno de erros</p>
+                        <p class="mt-2 text-3xl font-extrabold tracking-tight text-amber-300" id="stat-erros">0 questões</p>
+                        <p class="mt-1 text-xs text-slate-500">Pontos para revisar</p>
+                    </div>
+                    <div class="rounded-xl border border-amber-400/20 bg-amber-500/10 p-3 text-amber-300">
+                        <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 3h.01M10.3 4.9 2.9 18a1.5 1.5 0 0 0 1.3 2.2h15.6a1.5 1.5 0 0 0 1.3-2.2L13.7 4.9a2 2 0 0 0-3.4 0Z"/>
+                        </svg>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <main class="grid grid-cols-1 items-start gap-5 lg:grid-cols-12 lg:gap-6">
+            <aside class="space-y-5 lg:col-span-4">
+                <section class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 shadow-xl shadow-black/10">
+                    <div class="flex items-center justify-between border-b border-slate-800 px-5 py-4 sm:px-6">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400">Operação · 15 dias</p>
+                            <h2 class="mt-1 text-base font-bold text-white">Cronograma de estudos</h2>
+                        </div>
+                        <div class="rounded-lg border border-amber-400/20 bg-amber-400/10 p-2 text-amber-300">
+                            <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="3.5" y="5" width="17" height="16" rx="2"/>
+                                <path stroke-linecap="round" d="M7.5 3v4M16.5 3v4M3.5 10h17"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="lista-dias" class="max-h-80 space-y-2 overflow-y-auto p-4 sm:p-5"></div>
+                </section>
+
+                <section class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 shadow-xl shadow-black/10">
+                    <div class="flex items-center gap-3 border-b border-slate-800 px-5 py-4 sm:px-6">
+                        <div class="rounded-lg border border-blue-400/20 bg-blue-500/10 p-2 text-blue-300">
+                            <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5m0 14h17M8 16v-4m4 4V8m4 8v-6m4 6V4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400">Análise de desempenho</p>
+                            <h2 class="mt-0.5 text-base font-bold text-white">Desempenho por matéria</h2>
+                        </div>
+                    </div>
+                    <div id="desempenho-materias" class="space-y-2 p-4 text-xs sm:p-5"></div>
+                </section>
+            </aside>
+
+            <section class="min-w-0 space-y-5 lg:col-span-8">
+                <section class="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl shadow-black/10 sm:p-6">
+                    <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                        <div class="min-w-0">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">Central de treinamento</p>
+                            <h2 class="mt-1 text-lg font-bold leading-snug text-white sm:text-xl" id="titulo-dia-selecionado">Dia 1 (17/10) - Prova 60 Questões</h2>
+                            <p class="mt-1.5 text-sm text-slate-400">Monte seus blocos de questões no padrão Consulpam.</p>
+                        </div>
+                        <div class="flex w-full gap-2 xl:w-auto">
+                            <button type="button" onclick="alternarAba('prova')" id="btn-aba-prova" class="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/15 px-3 py-2 text-xs font-bold text-blue-200 transition hover:border-blue-400/60 hover:bg-blue-500/25 focus:outline-none focus:ring-2 focus:ring-blue-400/50 xl:flex-none">
+                                <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2Z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 3.5v5h5M8 13h8m-8 4h8"/>
+                                </svg>
+                                Prova do dia
+                            </button>
+                            <button type="button" onclick="alternarAba('erros')" id="btn-aba-erros" class="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-xs font-bold text-slate-300 transition hover:border-amber-500/50 hover:bg-amber-500/10 hover:text-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-400/40 xl:flex-none">
+                                <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 3h.01M10.3 4.9 2.9 18a1.5 1.5 0 0 0 1.3 2.2h15.6a1.5 1.5 0 0 0 1.3-2.2L13.7 4.9a2 2 0 0 0-3.4 0Z"/>
+                                </svg>
+                                Revisar erros
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 grid grid-cols-1 gap-3 border-t border-slate-800 pt-5 md:grid-cols-[minmax(0,1fr)_auto]">
+                        <label class="sr-only" for="materia-select">Selecione a matéria</label>
+                        <select id="materia-select" class="min-w-0 rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-sm text-slate-200 outline-none transition hover:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                            <option value="Língua Portuguesa (Com Texto Base de Interpretação + Gramática Consulpam)">1. Português com Texto Base (Meta: 15 questões)</option>
+                            <option value="Noções de Informática e Raciocínio Lógico (Padrão Consulpam)">2. Informática e Raciocínio Lógico (Meta: 10 questões)</option>
+                            <option value="Conhecimentos Gerais e História/Geografia de Sobral-CE">3. Atualidades e História de Sobral (Meta: 5 questões)</option>
+                            <option value="Legislação Específica GCM (Lei 13.022/14, CTB, Constitucional e Penal)">4. Conhecimentos Específicos GCM (Meta: 30 questões)</option>
+                        </select>
+                        <button type="button" onclick="gerarBlocoQuestoes()" id="btn-gerar" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-950/40 transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900 active:scale-[0.98]">
+                            <svg aria-hidden="true" class="h-4 w-4 text-amber-300" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="m13.2 2-8 11h5l-.7 9 8.3-12h-5.2l.6-8Z"/>
+                            </svg>
+                            Gerar +5 questões
+                        </button>
+                    </div>
+                </section>
+
+                <div id="area-questoes" class="space-y-4">
+                    <div class="rounded-2xl border border-dashed border-slate-700 bg-slate-900/60 px-6 py-10 text-center shadow-lg shadow-black/10 sm:px-10">
+                        <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-blue-400/20 bg-blue-500/10 text-blue-300">
+                            <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2Z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 3.5v5h5M8 13h8m-8 4h5"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-200">Pronto para iniciar o treino?</h3>
+                        <p class="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-slate-400">Selecione uma matéria e gere seu primeiro bloco de cinco questões para avançar na meta diária.</p>
+                        <p class="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/5 px-3 py-1.5 text-xs font-medium text-amber-200/80">
+                            <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
+                            Meta do dia: 60 questões · Prova em 01/11/2026
+                        </p>
+                    </div>
+                </div>
+
+                <div id="area-erros" class="hidden space-y-4"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
