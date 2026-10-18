@@ -79,12 +79,16 @@ function carregarDadosSalvos() {
         return normalizarDados(JSON.parse(salvo));
     } catch (erro) {
         if (erro instanceof SyntaxError) {
+            let copiaPreservada = false;
             try {
                 localStorage.setItem(`${STORAGE_KEY}_backup_${Date.now()}`, localStorage.getItem(STORAGE_KEY) || '');
+                copiaPreservada = true;
             } catch (erroBackup) {
                 console.error('Não foi possível criar uma cópia dos dados inválidos do painel.', erroBackup);
             }
-            alert('Os dados salvos do simulador estavam inválidos. Uma cópia foi preservada e o painel será aberto sem apagar esse arquivo de segurança.');
+            alert(copiaPreservada
+                ? 'Os dados salvos do simulador estavam inválidos. Uma cópia foi preservada e o painel será aberto sem apagar esse arquivo de segurança.'
+                : 'Os dados salvos do simulador estavam inválidos e não foi possível criar uma cópia. O painel será aberto sem esses dados; verifique o armazenamento antes de salvar novamente.');
         } else {
             console.error('Não foi possível ler os dados salvos do simulador.', erro);
             alert('Não foi possível acessar o armazenamento local. O progresso desta sessão pode não ser salvo.');
@@ -402,7 +406,7 @@ Retorne APENAS um array JSON válido neste formato exato:
             throw new Error('A resposta da API foi cortada por limite de tamanho. Tente gerar o bloco novamente.');
         }
         const textoResposta = candidato.content?.parts
-            ?.map(parte => typeof parte.text === 'string' ? parte.text : '')
+            ?.map(parte => parte && typeof parte.text === 'string' ? parte.text : '')
             .join('')
             .trim();
         if (!textoResposta) throw new Error('A API retornou uma resposta vazia. Tente novamente.');
@@ -554,8 +558,24 @@ window.alternarAba = function(aba) {
     const provaVisivel = aba === 'prova';
     document.getElementById('area-questoes')?.classList.toggle('hidden', !provaVisivel);
     document.getElementById('area-erros')?.classList.toggle('hidden', provaVisivel);
-    document.getElementById('btn-aba-prova')?.setAttribute('aria-pressed', String(provaVisivel));
-    document.getElementById('btn-aba-erros')?.setAttribute('aria-pressed', String(!provaVisivel));
+    const botaoProva = document.getElementById('btn-aba-prova');
+    const botaoErros = document.getElementById('btn-aba-erros');
+    botaoProva?.setAttribute('aria-pressed', String(provaVisivel));
+    botaoErros?.setAttribute('aria-pressed', String(!provaVisivel));
+    botaoProva?.classList.remove(
+        'border-blue-400/30', 'bg-blue-500/15', 'text-blue-200',
+        'border-slate-700', 'bg-slate-950/70', 'text-slate-300'
+    );
+    botaoProva?.classList.add(...(provaVisivel
+        ? ['border-blue-400/30', 'bg-blue-500/15', 'text-blue-200']
+        : ['border-slate-700', 'bg-slate-950/70', 'text-slate-300']));
+    botaoErros?.classList.remove(
+        'border-amber-400/30', 'bg-amber-500/10', 'text-amber-200',
+        'border-slate-700', 'bg-slate-950/70', 'text-slate-300'
+    );
+    botaoErros?.classList.add(...(!provaVisivel
+        ? ['border-amber-400/30', 'bg-amber-500/10', 'text-amber-200']
+        : ['border-slate-700', 'bg-slate-950/70', 'text-slate-300']));
 }
 
 window.gerarBlocoQuestoes = gerarBlocoQuestoes;
